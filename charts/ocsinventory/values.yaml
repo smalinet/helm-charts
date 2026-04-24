@@ -1,0 +1,191 @@
+# Values for ocs-inventory.
+
+# -- Official OCS Inventory image version
+# https://hub.docker.com/r/ocsinventory/ocsinventory-docker-image
+image:
+  # -- Image registry
+  registry: docker.io
+  # -- Image repository
+  repository: ocsinventory/ocsinventory-docker-image
+  # -- Image pullPolicy
+  pullPolicy: IfNotPresent
+  # -- Image specific tag
+  tag: ""
+
+deployment:
+  # Number of replicas to be deployed
+  replicaCount: 1
+  # -- Deployment annotations
+  annotations: {}
+  # -- Deployment labels
+  labels: {}
+
+# -- Image pull secrets
+imagePullSecrets: []
+
+# Override the name of the application
+nameOverride: ""
+# Override the full name of the application
+fullnameOverride: ""
+
+# -- Extra nvironment
+extraEnv: []
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- PHP configuration
+# https://www.php.net/manual/ini.core.php
+phpconfig:
+  ocsinventory: |
+    upload_max_filesize = 200M
+    post_max_size = 201M
+    max_execution_time = -1
+    max_input_time = -1
+
+# -- Enable persistence using Persistent Volume Claims
+# https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+#
+persistence:
+  # -- Persistence enabled
+  enabled: false
+  # -- PersistentVolumeClaim size
+  size: 10Gi
+  # -- PersistentVolumeClaim accessMode
+  accessMode: ReadWriteOnce
+  # -- Set storage class here
+  storageClass: ""
+  # Use an existing PVC
+  # existingClaim: ""
+  # -- PersistentVolumeClaim annotations
+  annotations: {}
+
+# -- External database configuration
+externalDatabase:
+  enabled: false
+  hostname: ""
+  username: ""
+  password: ""
+  database: ""
+
+# -- Configuration for creating a database on an existing server
+database:
+  create: false
+  jobName: "createdb"
+  hostname: ""
+  username: ""
+  password: ""
+  database: ""
+  root_password: ""
+
+# -- Allowing use of ingress controllers
+# https://kubernetes.io/docs/concepts/services-networking/ingress/
+ingress:
+  # -- Ingress enabled
+  enabled: true
+  # -- Ingress labels
+  labels: {}
+  hosts:
+    - "ocsng.example.com"
+  tls: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 200M
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: 300s
+    nginx.ingress.kubernetes.io/proxy-send-timeout: 300s
+    nginx.ingress.kubernetes.io/proxy-read-timeout: 300s
+    cert-manager.io/cluster-issuer: ""
+    nginx.ingress.kubernetes.io/app-root: /ocsreports/
+    # nginx.ingress.kubernetes.io/whitelist-source-range: ""
+  basicauth:
+    enabled: false
+    username: ""
+    password: ""
+    authRealm: "Authentication Required"
+    paths:
+      - "/ocsapi"
+      - "/ocsinventory"
+
+# -- Ressources limits and requests for the container
+# https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+resources:
+  limits:
+    cpu: 200m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+# -- InitContainers
+initContainers: []
+
+# -- DNS config
+dnsConfig: {}
+# dnsConfig:
+#   options:
+#   - name: ndots
+#     value: "1"
+#   - name: edns0
+
+# -- DNS policy
+dnsPolicy: ClusterFirst
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod security context
+podSecurityContext: {}
+  # fsGroup: 2000
+
+# -- Security context
+securityContext: {}
+  #capabilities:
+  #  add:
+  #  - NET_BIND_SERVICE
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# -- Node selector labels
+nodeSelector: {}
+
+# -- Tolerations
+tolerations: []
+
+# -- Affinity
+affinity: {}
+
+# -- Extra volume mounts
+extraVolumeMounts: []
+
+# -- Extra volumes
+extraVolumes: []
+
+metrics:
+    # -- Metrics enabled
+    enabled: false
+    image:
+      # Metrics image registry
+      registry: "docker.io"
+      # Metrics image repository
+      repository: "bitnami/apache-exporter"
+      # Metrics image tag
+      tag: "1.0.3-debian-11-r2"
+      # Metrics image pullPolicy
+      pullPolicy: IfNotPresent
+    serviceMonitor:
+      # Metrics serviceMonitor enabled
+      enabled: false
+      # -- Metrics serviceMonitor labels
+      labels:
+         prometheus: prometheus
+         release: tobedefined
+    # -- Metrics ressources
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi

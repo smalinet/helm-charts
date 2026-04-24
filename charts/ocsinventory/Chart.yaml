@@ -1,0 +1,26 @@
+apiVersion: v2
+name: ocsinventory
+type: application
+version: 0.1.0
+appVersion: "2.12.4"
+description: Open Computers and Software Inventory Next Generation is an assets management and deployment solution.
+home: https://ocsinventory-ng.org/
+icon: https://ocsinventory-ng.org/wp-content/uploads/2019/04/cropped-AUTOCOLLANT-01-1-192x192.png
+
+keywords:
+- ocsinventory
+- assets
+- management
+- deployment
+- inventory
+- http
+- web
+
+sources:
+- "http://wiki.ocsinventory-ng.org"
+- "https://github.com/OCSInventory-NG/OCSInventory-Docker-Image"
+
+maintainers:
+- name: Stephane Malinet
+  email: s.malinet@monaco-telecom.mc
+  url: https://github.com/smalinet

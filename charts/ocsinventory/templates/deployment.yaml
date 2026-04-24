@@ -1,0 +1,138 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "ocsinventory.fullname" . }}
+  labels:
+    {{- include "ocsinventory.labels" . | nindent 4 }}
+    {{- with .Values.deployment.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.deployment.annotations }}
+  annotations:
+    {{ toYaml . | indent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "ocsinventory.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ocsinventory.labels" . | nindent 8 }}
+      {{- if .Values.podAnnotations }}
+      annotations:
+        {{ toYaml .Values.podAnnotations | indent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          env:
+          - name: OCS_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "ocsinventory.fullname" . }}
+                key: db-name
+          - name: OCS_DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "ocsinventory.fullname" . }}
+                key: db-pass
+          - name: OCS_DB_SERVER
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "ocsinventory.fullname" . }}
+                key: db-host
+          - name: OCS_DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "ocsinventory.fullname" . }}
+                key: db-user
+          - name: OCS_SSL_ENABLED
+            value: "0"
+          - name: OCS_DBI_PRINT_ERROR
+            value: "0"
+          {{- with .Values.extraEnv }}
+          {{- toYaml . | nindent 10 }}
+          {{- end}}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            {{- if .Values.persistence.enabled }}
+            - mountPath: /etc/ocsinventory-server
+              name: {{ template "ocsinventory.fullname" . }}-data
+              subPath: perlcomdata
+            - mountPath: /usr/share/ocsinventory-reports/ocsreports/extensions
+              name: {{ template "ocsinventory.fullname" . }}-data
+              subPath: ocsreportsdata
+            - mountPath: /var/lib/ocsinventory-reports
+              name: {{ template "ocsinventory.fullname" . }}-data
+              subPath: varlibdata
+            - mountPath: /etc/apache2/conf-available
+              name: {{ template "ocsinventory.fullname" . }}-data
+              subPath: httpdconfdata
+            {{- end }}
+            - mountPath: /etc/php/8.1/apache2/conf.d/ocsinventory.ini
+              name: {{ template "ocsinventory.fullname" . }}-config
+              subPath: phpconfig
+            {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+        {{- if .Values.metrics.enabled }}
+        - name: {{ .Chart.Name }}-apache-metrics
+          image: "{{ .Values.metrics.image.registry }}{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"
+          imagePullPolicy: {{ .Values.metrics.image.pullPolicy }}
+          ports:
+            - name: metrics
+              containerPort: 9117
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.metrics.resources | nindent 12 }}
+        {{- end }}
+      {{- with .Values.initContainers }}
+      initContainers:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        {{- if .Values.persistence.enabled }}
+        - name: {{ template "ocsinventory.fullname" . }}-data
+          persistentVolumeClaim:
+            {{- if .Values.persistence.existingClaim }}
+            claimName: {{ .Values.persistence.existingClaim }}
+            {{- else }}
+            claimName: {{ template "ocsinventory.fullname" . }}-data
+            {{- end }}
+        {{- end }}
+        - name: {{ template "ocsinventory.fullname" . }}-config
+          configMap:
+            name: {{ template "ocsinventory.fullname" . }}-config
+            defaultMode: 420
+        {{- with .Values.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}

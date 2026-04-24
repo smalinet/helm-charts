@@ -1,0 +1,362 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "affinity": {
+            "description": "Affinity",
+            "type": "object"
+        },
+        "database": {
+            "description": "Configuration for creating a database on an existing server",
+            "type": "object",
+            "properties": {
+                "create": {
+                    "type": "boolean"
+                },
+                "database": {
+                    "type": "string"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "jobName": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "root_password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "deployment": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "description": "Deployment annotations",
+                    "type": "object"
+                },
+                "labels": {
+                    "description": "Deployment labels",
+                    "type": "object"
+                },
+                "replicaCount": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dnsConfig": {
+            "description": "DNS config",
+            "type": "object"
+        },
+        "dnsPolicy": {
+            "description": "DNS policy",
+            "type": "string"
+        },
+        "externalDatabase": {
+            "description": "External database configuration",
+            "type": "object",
+            "properties": {
+                "database": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "extraEnv": {
+            "description": "Extra nvironment",
+            "type": "array"
+        },
+        "extraVolumeMounts": {
+            "description": "Extra volume mounts",
+            "type": "array"
+        },
+        "extraVolumes": {
+            "description": "Extra volumes",
+            "type": "array"
+        },
+        "fullnameOverride": {
+            "type": "string"
+        },
+        "image": {
+            "description": "Official OCS Inventory image version https://hub.docker.com/r/ocsinventory/ocsinventory-docker-image",
+            "type": "object",
+            "properties": {
+                "pullPolicy": {
+                    "description": "Image pullPolicy",
+                    "type": "string"
+                },
+                "registry": {
+                    "description": "Image registry",
+                    "type": "string"
+                },
+                "repository": {
+                    "description": "Image repository",
+                    "type": "string"
+                },
+                "tag": {
+                    "description": "Image specific tag",
+                    "type": "string"
+                }
+            }
+        },
+        "imagePullSecrets": {
+            "description": "Image pull secrets",
+            "type": "array"
+        },
+        "ingress": {
+            "description": "Allowing use of ingress controllers https://kubernetes.io/docs/concepts/services-networking/ingress/",
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object",
+                    "properties": {
+                        "cert-manager.io/cluster-issuer": {
+                            "type": "string"
+                        },
+                        "kubernetes.io/ingress.class": {
+                            "type": "string"
+                        },
+                        "nginx.ingress.kubernetes.io/app-root": {
+                            "type": "string"
+                        },
+                        "nginx.ingress.kubernetes.io/force-ssl-redirect": {
+                            "type": "string"
+                        },
+                        "nginx.ingress.kubernetes.io/proxy-body-size": {
+                            "type": "string"
+                        },
+                        "nginx.ingress.kubernetes.io/proxy-connect-timeout": {
+                            "type": "string"
+                        },
+                        "nginx.ingress.kubernetes.io/proxy-read-timeout": {
+                            "type": "string"
+                        },
+                        "nginx.ingress.kubernetes.io/proxy-send-timeout": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "basicauth": {
+                    "type": "object",
+                    "properties": {
+                        "authRealm": {
+                            "type": "string"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "password": {
+                            "type": "string"
+                        },
+                        "paths": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "username": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "enabled": {
+                    "description": "Ingress enabled",
+                    "type": "boolean"
+                },
+                "hosts": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "labels": {
+                    "description": "Ingress labels",
+                    "type": "object"
+                },
+                "tls": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "initContainers": {
+            "description": "InitContainers",
+            "type": "array"
+        },
+        "metrics": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "description": "Metrics enabled",
+                    "type": "boolean"
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "pullPolicy": {
+                            "type": "string"
+                        },
+                        "registry": {
+                            "type": "string"
+                        },
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "resources": {
+                    "description": "Metrics ressources",
+                    "type": "object",
+                    "properties": {
+                        "limits": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": "string"
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "requests": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": "string"
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "serviceMonitor": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "labels": {
+                            "description": "Metrics serviceMonitor labels",
+                            "type": "object",
+                            "properties": {
+                                "prometheus": {
+                                    "type": "string"
+                                },
+                                "release": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "nameOverride": {
+            "type": "string"
+        },
+        "nodeSelector": {
+            "description": "Node selector labels",
+            "type": "object"
+        },
+        "persistence": {
+            "description": "Enable persistence using Persistent Volume Claims https://kubernetes.io/docs/concepts/storage/persistent-volumes/ ",
+            "type": "object",
+            "properties": {
+                "accessMode": {
+                    "description": "PersistentVolumeClaim accessMode",
+                    "type": "string"
+                },
+                "annotations": {
+                    "description": "PersistentVolumeClaim annotations",
+                    "type": "object"
+                },
+                "enabled": {
+                    "description": "Persistence enabled",
+                    "type": "boolean"
+                },
+                "size": {
+                    "description": "PersistentVolumeClaim size",
+                    "type": "string"
+                },
+                "storageClass": {
+                    "description": "Set storage class here",
+                    "type": "string"
+                }
+            }
+        },
+        "phpconfig": {
+            "description": "PHP configuration https://www.php.net/manual/ini.core.php",
+            "type": "object",
+            "properties": {
+                "ocsinventory": {
+                    "type": "string"
+                }
+            }
+        },
+        "podAnnotations": {
+            "description": "Pod annotations",
+            "type": "object"
+        },
+        "podSecurityContext": {
+            "description": "Pod security context",
+            "type": "object"
+        },
+        "resources": {
+            "description": "Ressources limits and requests for the container https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+            "type": "object",
+            "properties": {
+                "limits": {
+                    "type": "object",
+                    "properties": {
+                        "cpu": {
+                            "type": "string"
+                        },
+                        "memory": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "requests": {
+                    "type": "object",
+                    "properties": {
+                        "cpu": {
+                            "type": "string"
+                        },
+                        "memory": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "securityContext": {
+            "description": "Security context",
+            "type": "object"
+        },
+        "tolerations": {
+            "description": "Tolerations",
+            "type": "array"
+        }
+    }
+}
