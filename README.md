@@ -26,7 +26,7 @@ helm upgrade --install <chart_name> smalinet/<chart_name>
 Using an OCI-based registry:
 
 ```sh
-helm upgrade --install <chart_name> oci://ghcr.io/babykart/helm-charts/<chart_name>
+helm upgrade --install <chart_name> oci://ghcr.io/smalinet/helm-charts/<chart_name>
  ```
 
 To uninstall the chart:
