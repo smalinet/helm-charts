@@ -52,7 +52,7 @@ persistence:
   # If persistence=false the size is used by an emptyDir
   size: 1Gi
   # -- PersistentVolumeClaim accessMode
-  accessMode: ReadWriteOnce
+  accessMode: [ "ReadWriteOnce" ]
   # -- Set storage class here
   storageClass: ""
   # Use an existing PVC
