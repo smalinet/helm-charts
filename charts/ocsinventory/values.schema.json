@@ -7,28 +7,35 @@
             "type": "object"
         },
         "database": {
-            "description": "Configuration for creating a database on an existing server",
+            "description": "Configuration for the database on an existing server",
             "type": "object",
             "properties": {
                 "create": {
+                    "description": "If true, you must supply the password for the user root",
                     "type": "boolean"
                 },
                 "database": {
+                    "description": "Database name. db-name in the secret",
+                    "type": "string"
+                },
+                "existingSecret": {
+                    "description": "The name for an existing secret. Please refer to templates/secrets.yaml for the minimal content.",
                     "type": "string"
                 },
                 "hostname": {
-                    "type": "string"
-                },
-                "jobName": {
+                    "description": "Database hostname. db-host in the secret",
                     "type": "string"
                 },
                 "password": {
+                    "description": "Database password. db-password in the secret",
                     "type": "string"
                 },
                 "root_password": {
+                    "description": "The password for the user root - root-pass in the secret",
                     "type": "string"
                 },
                 "username": {
+                    "description": "Database username. db-user in the secret",
                     "type": "string"
                 }
             }
@@ -45,6 +52,7 @@
                     "type": "object"
                 },
                 "replicaCount": {
+                    "description": "Number of replicas to be deployed",
                     "type": "integer"
                 }
             }
@@ -57,29 +65,8 @@
             "description": "DNS policy",
             "type": "string"
         },
-        "externalDatabase": {
-            "description": "External database configuration",
-            "type": "object",
-            "properties": {
-                "database": {
-                    "type": "string"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "hostname": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                }
-            }
-        },
         "extraEnv": {
-            "description": "Extra nvironment",
+            "description": "Extra environment",
             "type": "array"
         },
         "extraVolumeMounts": {
@@ -91,6 +78,7 @@
             "type": "array"
         },
         "fullnameOverride": {
+            "description": "Override the full name of the application",
             "type": "string"
         },
         "image": {
@@ -110,7 +98,7 @@
                     "type": "string"
                 },
                 "tag": {
-                    "description": "Image specific tag",
+                    "description": "Overrides the image tag whose default is the chart appVersion.",
                     "type": "string"
                 }
             }
@@ -209,15 +197,19 @@
                     "type": "object",
                     "properties": {
                         "pullPolicy": {
+                            "description": "Metrics image pullPolicy",
                             "type": "string"
                         },
                         "registry": {
+                            "description": "Metrics image registry",
                             "type": "string"
                         },
                         "repository": {
+                            "description": "Metrics image repository",
                             "type": "string"
                         },
                         "tag": {
+                            "description": "Metrics image tag",
                             "type": "string"
                         }
                     }
@@ -254,6 +246,7 @@
                     "type": "object",
                     "properties": {
                         "enabled": {
+                            "description": "Metrics serviceMonitor enabled",
                             "type": "boolean"
                         },
                         "labels": {
@@ -273,6 +266,7 @@
             }
         },
         "nameOverride": {
+            "description": "Override the name of the application",
             "type": "string"
         },
         "nodeSelector": {
@@ -280,12 +274,15 @@
             "type": "object"
         },
         "persistence": {
-            "description": "Enable persistence using Persistent Volume Claims https://kubernetes.io/docs/concepts/storage/persistent-volumes/ ",
+            "description": "Enable persistence using Persistent Volume Claims https://kubernetes.io/docs/concepts/storage/persistent-volumes/",
             "type": "object",
             "properties": {
                 "accessMode": {
                     "description": "PersistentVolumeClaim accessMode",
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "annotations": {
                     "description": "PersistentVolumeClaim annotations",
@@ -296,7 +293,7 @@
                     "type": "boolean"
                 },
                 "size": {
-                    "description": "PersistentVolumeClaim size If persistence=false the size is used by an emptyDir",
+                    "description": "PersistentVolumeClaim size. If persistence=false the size is used by an emptyDir",
                     "type": "string"
                 },
                 "storageClass": {
