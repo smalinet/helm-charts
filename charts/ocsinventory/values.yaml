@@ -50,7 +50,8 @@ persistence:
   # -- Persistence enabled
   enabled: false
   # -- PersistentVolumeClaim size
-  size: 10Gi
+  # If persistence=false the size is used by an emptyDir
+  size: 1Gi
   # -- PersistentVolumeClaim accessMode
   accessMode: ReadWriteOnce
   # -- Set storage class here

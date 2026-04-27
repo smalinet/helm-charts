@@ -72,7 +72,6 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            {{- if .Values.persistence.enabled }}
             - mountPath: /etc/ocsinventory-server
               name: {{ template "ocsinventory.fullname" . }}-data
               subPath: perlcomdata
@@ -85,7 +84,6 @@ spec:
             - mountPath: /etc/apache2/conf-available
               name: {{ template "ocsinventory.fullname" . }}-data
               subPath: httpdconfdata
-            {{- end }}
             - mountPath: /etc/php/8.1/apache2/conf.d/ocsinventory.ini
               name: {{ template "ocsinventory.fullname" . }}-config
               subPath: phpconfig
@@ -120,14 +118,17 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        {{- if .Values.persistence.enabled }}
         - name: {{ template "ocsinventory.fullname" . }}-data
+        {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             {{- if .Values.persistence.existingClaim }}
             claimName: {{ .Values.persistence.existingClaim }}
             {{- else }}
             claimName: {{ template "ocsinventory.fullname" . }}-data
             {{- end }}
+        {{- else }}
+          emptyDir:
+            sizeLimit: {{ .Values.persistence.size }}
         {{- end }}
         - name: {{ template "ocsinventory.fullname" . }}-config
           configMap:
