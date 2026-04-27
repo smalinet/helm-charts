@@ -1,6 +1,6 @@
 # ocsinventory
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.12.4](https://img.shields.io/badge/AppVersion-2.12.4-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.12.4](https://img.shields.io/badge/AppVersion-2.12.4-informational?style=flat-square)
 
 Open Computers and Software Inventory Next Generation is an assets management and deployment solution.
 
@@ -22,42 +22,48 @@ Open Computers and Software Inventory Next Generation is an assets management an
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity |
-| database | object | `{"create":false,"database":"","hostname":"","jobName":"createdb","password":"","root_password":"","username":""}` | Configuration for creating a database on an existing server |
+| database | object | `{"create":false,"database":"","existingSecret":"","hostname":"","password":"","root_password":"","username":""}` | Configuration for the database on an existing server |
+| database.create | bool | `false` | If true, you must supply the password for the user root |
+| database.database | string | `""` | Database name. db-name in the secret |
+| database.existingSecret | string | `""` | The name for an existing secret. Please refer to templates/secrets.yaml for the minimal content. |
+| database.hostname | string | `""` | Database hostname. db-host in the secret |
+| database.password | string | `""` | Database password. db-password in the secret |
+| database.root_password | string | `""` | The password for the user root - root-pass in the secret |
+| database.username | string | `""` | Database username. db-user in the secret |
 | deployment.annotations | object | `{}` | Deployment annotations |
 | deployment.labels | object | `{}` | Deployment labels |
-| deployment.replicaCount | int | `1` |  |
+| deployment.replicaCount | int | `1` | Number of replicas to be deployed |
 | dnsConfig | object | `{}` | DNS config |
 | dnsPolicy | string | `"ClusterFirst"` | DNS policy |
-| externalDatabase | object | `{"database":"","enabled":false,"hostname":"","password":"","username":""}` | External database configuration |
-| extraEnv | list | `[]` | Extra nvironment |
+| extraEnv | list | `[]` | Extra environment |
 | extraVolumeMounts | list | `[]` | Extra volume mounts |
 | extraVolumes | list | `[]` | Extra volumes |
-| fullnameOverride | string | `""` |  |
+| fullnameOverride | string | `""` | Override the full name of the application |
 | image | object | `{"pullPolicy":"IfNotPresent","registry":"docker.io","repository":"ocsinventory/ocsinventory-docker-image","tag":""}` | Official OCS Inventory image version https://hub.docker.com/r/ocsinventory/ocsinventory-docker-image |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pullPolicy |
 | image.registry | string | `"docker.io"` | Image registry |
 | image.repository | string | `"ocsinventory/ocsinventory-docker-image"` | Image repository |
-| image.tag | string | `""` | Image specific tag |
+| image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
 | imagePullSecrets | list | `[]` | Image pull secrets |
 | ingress | object | `{"annotations":{"cert-manager.io/cluster-issuer":"","kubernetes.io/ingress.class":"nginx","nginx.ingress.kubernetes.io/app-root":"/ocsreports/","nginx.ingress.kubernetes.io/force-ssl-redirect":"true","nginx.ingress.kubernetes.io/proxy-body-size":"200M","nginx.ingress.kubernetes.io/proxy-connect-timeout":"300s","nginx.ingress.kubernetes.io/proxy-read-timeout":"300s","nginx.ingress.kubernetes.io/proxy-send-timeout":"300s"},"basicauth":{"authRealm":"Authentication Required","enabled":false,"password":"","paths":["/ocsapi","/ocsinventory"],"username":""},"enabled":true,"hosts":["ocsng.example.com"],"labels":{},"tls":true}` | Allowing use of ingress controllers https://kubernetes.io/docs/concepts/services-networking/ingress/ |
 | ingress.enabled | bool | `true` | Ingress enabled |
 | ingress.labels | object | `{}` | Ingress labels |
 | initContainers | list | `[]` | InitContainers |
 | metrics.enabled | bool | `false` | Metrics enabled |
-| metrics.image.pullPolicy | string | `"IfNotPresent"` |  |
-| metrics.image.registry | string | `"docker.io"` |  |
-| metrics.image.repository | string | `"bitnami/apache-exporter"` |  |
-| metrics.image.tag | string | `"1.0.3-debian-11-r2"` |  |
+| metrics.image.pullPolicy | string | `"IfNotPresent"` | Metrics image pullPolicy |
+| metrics.image.registry | string | `"docker.io"` | Metrics image registry |
+| metrics.image.repository | string | `"bitnami/apache-exporter"` | Metrics image repository |
+| metrics.image.tag | string | `"1.0.3-debian-11-r2"` | Metrics image tag |
 | metrics.resources | object | `{"limits":{"cpu":"200m","memory":"256Mi"},"requests":{"cpu":"100m","memory":"100Mi"}}` | Metrics ressources |
-| metrics.serviceMonitor.enabled | bool | `false` |  |
+| metrics.serviceMonitor.enabled | bool | `false` | Metrics serviceMonitor enabled |
 | metrics.serviceMonitor.labels | object | `{"prometheus":"prometheus","release":"tobedefined"}` | Metrics serviceMonitor labels |
-| nameOverride | string | `""` |  |
+| nameOverride | string | `""` | Override the name of the application |
 | nodeSelector | object | `{}` | Node selector labels |
-| persistence | object | `{"accessMode":"ReadWriteOnce","annotations":{},"enabled":false,"size":"1Gi","storageClass":""}` | Enable persistence using Persistent Volume Claims https://kubernetes.io/docs/concepts/storage/persistent-volumes/  |
-| persistence.accessMode | string | `"ReadWriteOnce"` | PersistentVolumeClaim accessMode |
+| persistence | object | `{"accessMode":["ReadWriteOnce"],"annotations":{},"enabled":false,"size":"1Gi","storageClass":""}` | Enable persistence using Persistent Volume Claims https://kubernetes.io/docs/concepts/storage/persistent-volumes/ |
+| persistence.accessMode | list | `["ReadWriteOnce"]` | PersistentVolumeClaim accessMode |
 | persistence.annotations | object | `{}` | PersistentVolumeClaim annotations |
 | persistence.enabled | bool | `false` | Persistence enabled |
-| persistence.size | string | `"1Gi"` | PersistentVolumeClaim size If persistence=false the size is used by an emptyDir |
+| persistence.size | string | `"1Gi"` | PersistentVolumeClaim size. If persistence=false the size is used by an emptyDir |
 | persistence.storageClass | string | `""` | Set storage class here |
 | phpconfig | object | `{"ocsinventory":"upload_max_filesize = 200M\npost_max_size = 201M\nmax_execution_time = -1\nmax_input_time = -1\n"}` | PHP configuration https://www.php.net/manual/ini.core.php |
 | podAnnotations | object | `{}` | Pod annotations |
