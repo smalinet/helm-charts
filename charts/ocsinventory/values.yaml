@@ -48,7 +48,7 @@ phpconfig:
 persistence:
   # -- Persistence enabled
   enabled: false
-  # -- PersistentVolumeClaim size
+  # -- PersistentVolumeClaim size.
   # If persistence=false the size is used by an emptyDir
   size: 1Gi
   # -- PersistentVolumeClaim accessMode
@@ -60,23 +60,22 @@ persistence:
   # -- PersistentVolumeClaim annotations
   annotations: {}
 
-# -- External database configuration
-externalDatabase:
-  enabled: false
-  hostname: ""
-  username: ""
-  password: ""
-  database: ""
-
-# -- Configuration for creating a database on an existing server
+# -- Configuration for the database on an existing server
 database:
+  # -- If true, you must supply the password for the user root
   create: false
-  jobName: "createdb"
-  hostname: ""
-  username: ""
-  password: ""
-  database: ""
+  # -- The password for the user root - root-pass in the secret
   root_password: ""
+  # -- The name for an existing secret. Please refer to templates/secrets.yaml for the minimal content.
+  existingSecret: ""
+  # -- Database hostname. db-host in the secret
+  hostname: ""
+  # -- Database username. db-user in the secret
+  username: ""
+  # -- Database password. db-password in the secret
+  password: ""
+  # -- Database name. db-name in the secret
+  database: ""
 
 service:
   # -- Service annotations
