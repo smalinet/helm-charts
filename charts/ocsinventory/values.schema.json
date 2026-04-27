@@ -296,7 +296,7 @@
                     "type": "boolean"
                 },
                 "size": {
-                    "description": "PersistentVolumeClaim size",
+                    "description": "PersistentVolumeClaim size If persistence=false the size is used by an emptyDir",
                     "type": "string"
                 },
                 "storageClass": {
@@ -353,6 +353,30 @@
         "securityContext": {
             "description": "Security context",
             "type": "object"
+        },
+        "service": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "description": "Service annotations",
+                    "type": "object"
+                },
+                "ipFamilies": {
+                    "description": "Service ipFamilies",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "ipFamilyPolicy": {
+                    "description": "Service ipFamilyPolicy SingleStack|PreferDualStack|RequireDualStack",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Service type",
+                    "type": "string"
+                }
+            }
         },
         "tolerations": {
             "description": "Tolerations",

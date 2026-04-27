@@ -53,11 +53,11 @@ Open Computers and Software Inventory Next Generation is an assets management an
 | metrics.serviceMonitor.labels | object | `{"prometheus":"prometheus","release":"tobedefined"}` | Metrics serviceMonitor labels |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` | Node selector labels |
-| persistence | object | `{"accessMode":"ReadWriteOnce","annotations":{},"enabled":false,"size":"10Gi","storageClass":""}` | Enable persistence using Persistent Volume Claims https://kubernetes.io/docs/concepts/storage/persistent-volumes/  |
+| persistence | object | `{"accessMode":"ReadWriteOnce","annotations":{},"enabled":false,"size":"1Gi","storageClass":""}` | Enable persistence using Persistent Volume Claims https://kubernetes.io/docs/concepts/storage/persistent-volumes/  |
 | persistence.accessMode | string | `"ReadWriteOnce"` | PersistentVolumeClaim accessMode |
 | persistence.annotations | object | `{}` | PersistentVolumeClaim annotations |
 | persistence.enabled | bool | `false` | Persistence enabled |
-| persistence.size | string | `"10Gi"` | PersistentVolumeClaim size |
+| persistence.size | string | `"1Gi"` | PersistentVolumeClaim size If persistence=false the size is used by an emptyDir |
 | persistence.storageClass | string | `""` | Set storage class here |
 | phpconfig | object | `{"ocsinventory":"upload_max_filesize = 200M\npost_max_size = 201M\nmax_execution_time = -1\nmax_input_time = -1\n"}` | PHP configuration https://www.php.net/manual/ini.core.php |
 | podAnnotations | object | `{}` | Pod annotations |
@@ -65,6 +65,10 @@ Open Computers and Software Inventory Next Generation is an assets management an
 | podSecurityContext | object | `{}` | Pod security context |
 | resources | object | `{"limits":{"cpu":"200m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | Ressources limits and requests for the container https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ |
 | securityContext | object | `{}` | Security context |
+| service.annotations | object | `{}` | Service annotations |
+| service.ipFamilies | list | `["IPv4"]` | Service ipFamilies |
+| service.ipFamilyPolicy | string | `"SingleStack"` | Service ipFamilyPolicy SingleStack|PreferDualStack|RequireDualStack |
+| service.type | string | `"ClusterIP"` | Service type |
 | tolerations | list | `[]` | Tolerations |
 
 ----------------------------------------------
