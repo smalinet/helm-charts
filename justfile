@@ -13,6 +13,10 @@ _default:
 helm-docs chart:
     {{ helm_docs_bin }} --document-dependency-values --chart-search-root ./charts/{{ chart }}
 
+# Run helm lint for chart
+helm-lint chart:
+    {{ helm_bin }} lint --strict ./charts/{{ chart }}
+
 # Generate the values.schema.json for chart
 helm-schema chart:
     {{ helm_bin }} schema --use-helm-docs -f ./charts/{{ chart }}/values.yaml -o ./charts/{{ chart }}/values.schema.json
