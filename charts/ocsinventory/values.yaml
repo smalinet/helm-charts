@@ -9,11 +9,11 @@ image:
   repository: ocsinventory/ocsinventory-docker-image
   # -- Image pullPolicy
   pullPolicy: IfNotPresent
-  # -- Image specific tag
+  # -- Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
 deployment:
-  # Number of replicas to be deployed
+  # -- Number of replicas to be deployed
   replicaCount: 1
   # -- Deployment annotations
   annotations: {}
@@ -173,29 +173,29 @@ extraVolumeMounts: []
 extraVolumes: []
 
 metrics:
-    # -- Metrics enabled
+  # -- Metrics enabled
+  enabled: false
+  image:
+    # -- Metrics image registry
+    registry: "docker.io"
+    # -- Metrics image repository
+    repository: "bitnami/apache-exporter"
+    # -- Metrics image tag
+    tag: "1.0.3-debian-11-r2"
+    # -- Metrics image pullPolicy
+    pullPolicy: IfNotPresent
+  serviceMonitor:
+    # -- Metrics serviceMonitor enabled
     enabled: false
-    image:
-      # Metrics image registry
-      registry: "docker.io"
-      # Metrics image repository
-      repository: "bitnami/apache-exporter"
-      # Metrics image tag
-      tag: "1.0.3-debian-11-r2"
-      # Metrics image pullPolicy
-      pullPolicy: IfNotPresent
-    serviceMonitor:
-      # Metrics serviceMonitor enabled
-      enabled: false
-      # -- Metrics serviceMonitor labels
-      labels:
-         prometheus: prometheus
-         release: tobedefined
-    # -- Metrics ressources
-    resources:
-      limits:
-        cpu: 200m
-        memory: 256Mi
-      requests:
-        cpu: 100m
-        memory: 100Mi
+    # -- Metrics serviceMonitor labels
+    labels:
+       prometheus: prometheus
+       release: tobedefined
+  # -- Metrics ressources
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 100Mi
