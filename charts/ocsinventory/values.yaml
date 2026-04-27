@@ -92,7 +92,9 @@ service:
 # https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
   # -- Ingress enabled
-  enabled: true
+  enabled: false
+  # -- Ingress className
+  className: ""
   # -- Ingress labels
   labels: {}
   hosts:
