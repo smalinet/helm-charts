@@ -4,11 +4,11 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ template "ocsinventory.fullname" . }}-apache-service-monitor
+  name: {{ include "ocsinventory.fullname" . }}-apache-service-monitor
   labels:
     prometheus: {{ .Values.metrics.serviceMonitor.labels.prometheus }}
     release: {{ .Values.metrics.serviceMonitor.labels.release }}
-    {{- include "ocsinventory.labels" . | nindent 4 }}    
+    {{- include "ocsinventory.labels" . | nindent 4 }}
 spec:
   endpoints:
   - port: metrics

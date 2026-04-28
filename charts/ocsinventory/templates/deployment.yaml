@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "ocsinventory.fullname" . }}
+  name: {{ include "ocsinventory.fullname" . }}
   labels:
     {{- include "ocsinventory.labels" . | nindent 4 }}
     {{- with .Values.deployment.labels }}
