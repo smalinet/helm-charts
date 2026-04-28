@@ -31,9 +31,6 @@ fullnameOverride: ""
 # -- Extra environment
 extraEnv: []
 
-# -- Pod annotations
-podAnnotations: {}
-
 # -- PHP configuration
 # https://www.php.net/manual/ini.core.php
 phpconfig:
