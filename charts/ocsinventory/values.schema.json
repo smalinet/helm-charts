@@ -379,6 +379,27 @@
                 }
             }
         },
+        "serviceAccount": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "description": "Annotations to add to the service account",
+                    "type": "object"
+                },
+                "automount": {
+                    "description": "Automatically mount the service account token",
+                    "type": "boolean"
+                },
+                "create": {
+                    "description": "Specifies whether a service account should be created",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "The name of the service account to use. If not set and create is true, a name is generated using the fullname template",
+                    "type": "string"
+                }
+            }
+        },
         "tolerations": {
             "description": "Tolerations",
             "type": "array"

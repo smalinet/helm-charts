@@ -1,6 +1,6 @@
 # ocsinventory
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.12.4](https://img.shields.io/badge/AppVersion-2.12.4-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.12.4](https://img.shields.io/badge/AppVersion-2.12.4-informational?style=flat-square)
 
 Open Computers and Software Inventory Next Generation is an assets management and deployment solution.
 
@@ -16,6 +16,39 @@ Open Computers and Software Inventory Next Generation is an assets management an
 
 * <https://wiki.ocsinventory-ng.org>
 * <https://github.com/OCSInventory-NG/OCSInventory-Docker-Image>
+
+## Usage
+
+[Helm](https://helm.sh) must be installed to use the charts. Please refer to
+Helm's [documentation](https://helm.sh/docs) to get started.
+
+Once Helm has been set up correctly, add the repo as follows:
+
+```sh
+helm repo add smalinet https://smalinet.github.io/helm-charts
+```
+
+If you had already added this repo earlier, run `helm repo update` to retrieve
+the latest versions of the packages. You can then run `helm search repo
+smalinet` to see the charts.
+
+To install the ocsinventory chart:
+
+```sh
+helm upgrade --install ocsinventory smalinet/ocsinventory
+```
+
+To install the ocsinventory chart (using an OCI-based registry):
+
+```sh
+helm upgrade --install ocsinventory oci://ghcr.io/smalinet/helm-charts/ocsinventory:<tag>
+ ```
+
+To uninstall the chart:
+
+```sh
+helm delete ocsinventory
+```
 
 ## Values
 
@@ -75,6 +108,10 @@ Open Computers and Software Inventory Next Generation is an assets management an
 | service.ipFamilies | list | `["IPv4"]` | Service ipFamilies |
 | service.ipFamilyPolicy | string | `"SingleStack"` | Service ipFamilyPolicy SingleStack|PreferDualStack|RequireDualStack |
 | service.type | string | `"ClusterIP"` | Service type |
+| serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
+| serviceAccount.automount | bool | `false` | Automatically mount the service account token |
+| serviceAccount.create | bool | `false` | Specifies whether a service account should be created |
+| serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | tolerations | list | `[]` | Tolerations |
 
 ----------------------------------------------
