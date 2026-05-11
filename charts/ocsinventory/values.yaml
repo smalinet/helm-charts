@@ -108,16 +108,16 @@ ingress:
   hosts:
     - "ocsng.example.com"
   tls: true
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: 200M
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: 300s
-    nginx.ingress.kubernetes.io/proxy-send-timeout: 300s
-    nginx.ingress.kubernetes.io/proxy-read-timeout: 300s
-    cert-manager.io/cluster-issuer: ""
-    nginx.ingress.kubernetes.io/app-root: /ocsreports/
-    # nginx.ingress.kubernetes.io/whitelist-source-range: ""
+  annotations: {}
+  # annotations:
+  #   kubernetes.io/ingress.class: nginx
+  #   nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  #   nginx.ingress.kubernetes.io/proxy-body-size: 200M
+  #   nginx.ingress.kubernetes.io/proxy-connect-timeout: 300s
+  #   nginx.ingress.kubernetes.io/proxy-send-timeout: 300s
+  #   nginx.ingress.kubernetes.io/proxy-read-timeout: 300s
+  #   nginx.ingress.kubernetes.io/app-root: /ocsreports/
+  #   nginx.ingress.kubernetes.io/whitelist-source-range: ""
   basicauth:
     enabled: false
     username: ""
