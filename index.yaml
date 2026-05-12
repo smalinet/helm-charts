@@ -3,6 +3,34 @@ entries:
   ocsinventory:
   - apiVersion: v2
     appVersion: 2.12.4
+    created: "2026-05-12T09:42:52.291399655Z"
+    description: Open Computers and Software Inventory Next Generation is an assets
+      management and deployment solution.
+    digest: bcb092979b16df401c03848302d20c62afad6c2344013be63545cffbc5446005
+    home: https://ocsinventory-ng.org/
+    icon: https://ocsinventory-ng.org/wp-content/uploads/2019/04/cropped-AUTOCOLLANT-01-1-192x192.png
+    keywords:
+    - ocsinventory
+    - assets
+    - management
+    - deployment
+    - inventory
+    - http
+    - web
+    maintainers:
+    - email: s.malinet@monaco-telecom.mc
+      name: Stephane Malinet
+      url: https://github.com/smalinet
+    name: ocsinventory
+    sources:
+    - https://wiki.ocsinventory-ng.org
+    - https://github.com/OCSInventory-NG/OCSInventory-Docker-Image
+    type: application
+    urls:
+    - https://github.com/smalinet/helm-charts/releases/download/ocsinventory-0.3.2/ocsinventory-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: 2.12.4
     created: "2026-04-28T10:07:12.075974419Z"
     description: Open Computers and Software Inventory Next Generation is an assets
       management and deployment solution.
@@ -141,4 +169,4 @@ entries:
     urls:
     - https://github.com/smalinet/helm-charts/releases/download/ocsinventory-0.2.0/ocsinventory-0.2.0.tgz
     version: 0.2.0
-generated: "2026-04-28T10:07:12.075993184Z"
+generated: "2026-05-12T09:42:52.291423129Z"
