@@ -1,6 +1,6 @@
 # ocsinventory
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.12.4](https://img.shields.io/badge/AppVersion-2.12.4-informational?style=flat-square)
+![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.12.4](https://img.shields.io/badge/AppVersion-2.12.4-informational?style=flat-square)
 
 Open Computers and Software Inventory Next Generation is an assets management and deployment solution.
 
@@ -78,7 +78,7 @@ helm delete ocsinventory
 | image.repository | string | `"ocsinventory/ocsinventory-docker-image"` | Image repository |
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
 | imagePullSecrets | list | `[]` | Image pull secrets |
-| ingress | object | `{"annotations":{"cert-manager.io/cluster-issuer":"","kubernetes.io/ingress.class":"nginx","nginx.ingress.kubernetes.io/app-root":"/ocsreports/","nginx.ingress.kubernetes.io/force-ssl-redirect":"true","nginx.ingress.kubernetes.io/proxy-body-size":"200M","nginx.ingress.kubernetes.io/proxy-connect-timeout":"300s","nginx.ingress.kubernetes.io/proxy-read-timeout":"300s","nginx.ingress.kubernetes.io/proxy-send-timeout":"300s"},"basicauth":{"authRealm":"Authentication Required","enabled":false,"password":"","paths":["/ocsapi","/ocsinventory"],"username":""},"className":"","enabled":false,"hosts":["ocsng.example.com"],"labels":{},"tls":true}` | Allowing use of ingress controllers https://kubernetes.io/docs/concepts/services-networking/ingress/ |
+| ingress | object | `{"annotations":{},"basicauth":{"authRealm":"Authentication Required","enabled":false,"password":"","paths":["/ocsapi","/ocsinventory"],"username":""},"className":"","enabled":false,"hosts":["ocsng.example.com"],"labels":{},"tls":true}` | Allowing use of ingress controllers https://kubernetes.io/docs/concepts/services-networking/ingress/ |
 | ingress.className | string | `""` | Ingress className |
 | ingress.enabled | bool | `false` | Ingress enabled |
 | ingress.labels | object | `{}` | Ingress labels |
